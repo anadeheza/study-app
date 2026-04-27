@@ -128,8 +128,8 @@ function restartSession() {
     remainingSeconds = selectedMinutes * 60;
 
     document.getElementById('timerControls').innerHTML= `
-        <button class="ctrl-btn stop" onclick="resetTimer()">detener</button>
-        <button class="ctrl-btn primary" id="pauseBtn" onclick="togglePause()">pausar</button>
+        <button class="ctrl-btn stop" onclick="resetTimer()">end session</button>
+        <button class="ctrl-btn primary" id="pauseBtn" onclick="togglePause()">pause</button>
     `;
 
     document.getElementById('timerView').style.display = 'flex';
