@@ -1,125 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study App</title>
-    link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>studiō — app de estudio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="app" id="app">
 
-    <div class="app" id="app">
-        <div class="overlay" id="overlay" onclick="closePanels()"></div>
-        
-        <div class="panel-izq" id="panel">
-            <div class="panel-header">
-                <div class="panel-title">Agenda</div> 
-                <button class="panel-close" onclick="closePanels()">X</button>
-            </div>
-            <div class="panel-body">
-                <div class="cal-nav">
-                    <button onclick="calNav(-1)"><</button>
-                    <div class="cal-month" id="calMonthLabel"></div>
-                    <button onclick="calNav(1)">></button>
-                </div>
-                <div class="cal-grid" id="calGrid"></div>
-                <div class="cal-events">
-                    <div class="cal-events-title" id="calEventsTitle">Events</div>
-                    <div class="event-add">
-                        <input id="eventInput" placeholder="Add event..." onkeydown="if(event.key === 'Enter')addEvent()">
-                        <button onclick="addEvent()">+</button>
-                    </div>
-                    <div id="eventList"></div>
-                </div>
-            </div>
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" onclick="closePanels()"></div>
+
+  <!-- Panel izquierdo: Calendario -->
+  <div class="panel left" id="calPanel">
+    <div class="panel-header">
+      <div class="panel-title">agenda</div>
+      <button class="panel-close" onclick="closePanels()">×</button>
+    </div>
+    <div class="panel-body">
+      <div class="cal-nav">
+        <button onclick="calNav(-1)">‹</button>
+        <div class="cal-month" id="calMonthLabel"></div>
+        <button onclick="calNav(1)">›</button>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-events">
+        <div class="cal-events-title" id="calEventsTitle">eventos</div>
+        <div class="event-add">
+          <input id="eventInput" placeholder="agregar evento..." onkeydown="if(event.key==='Enter')addEvent()">
+          <button onclick="addEvent()">+</button>
         </div>
+        <div id="eventList"></div>
+      </div>
+    </div>
+  </div>
 
-        <div class="panel-der" id="to-doPanel">
-            <div class="panel-header">
-                <div class="panel-title">Tasks</div>
-                <button class="panel-close" onclick="closePanels()">X</button>
-            </div>
-            <div class="panel-body">
-                <div class="to-do-add">
-                    <input id="to-doInput" placeholder="New task..." onkeydown="if(event.key === 'Enter')addTodo()">
-                    <button onclick="addTodo()">+</button>
-                </div>
-                <div id="to-doList"></div>
-            </div>
+  <!-- Panel derecho: To-do -->
+  <div class="panel right" id="todoPanel">
+    <div class="panel-header">
+      <div class="panel-title">tareas</div>
+      <button class="panel-close" onclick="closePanels()">×</button>
+    </div>
+    <div class="panel-body">
+      <div class="todo-add">
+        <input id="todoInput" placeholder="nueva tarea..." onkeydown="if(event.key==='Enter')addTodo()">
+        <button onclick="addTodo()">+</button>
+      </div>
+      <div id="todoList"></div>
+    </div>
+  </div>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <button class="topbar-btn" onclick="toggleCal()" title="Agenda">
+      <svg viewBox="0 0 24 24" stroke-width="1.5">
+        <rect x="3" y="4" width="18" height="18" rx="2"/>
+        <line x1="3" y1="9" x2="21" y2="9"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+      </svg>
+    </button>
+    <div class="logo">studiō</div>
+    <button class="topbar-btn" onclick="toggleTodo()" title="Tareas">
+      <svg viewBox="0 0 24 24" stroke-width="1.5">
+        <line x1="8" y1="6" x2="21" y2="6"/>
+        <line x1="8" y1="12" x2="21" y2="12"/>
+        <line x1="8" y1="18" x2="21" y2="18"/>
+        <polyline points="3 6 4 7 6 5"/>
+        <polyline points="3 12 4 13 6 11"/>
+        <polyline points="3 18 4 19 6 17"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Main content -->
+  <div class="main" id="mainArea">
+
+    <!-- SETUP -->
+    <div id="setupView">
+      <div class="setup-panel">
+        <div class="setup-title">¿cuánto tiempo vas a estudiar?</div>
+        <div class="setup-sub">elegí o personalizá tu sesión</div>
+        <div class="time-options">
+          <div class="time-opt" onclick="selectTime(15, this)">15 min</div>
+          <div class="time-opt selected" onclick="selectTime(25, this)">25 min</div>
+          <div class="time-opt" onclick="selectTime(45, this)">45 min</div>
+          <div class="time-opt" onclick="selectTime(60, this)">60 min</div>
+          <div class="time-opt" onclick="selectTime(90, this)">90 min</div>
         </div>
-
-        <div class="topbar">
-            <button class="topbar-btn" onclick="toggleCal()" title="Agenda">
-                <svg viewBox="0 0 24 24" stroke-width="1.5">
-                    <rect x="3" y="4" width="18" height="18" rx="2"/>
-                    <line x1="3" y1="9" x2="21" y2="9"/>
-                    <line x1="8" y1="2" x2="8" y2="6"/>
-                    <line x1="16" y1="2" x2="16" y2="6"/>
-                </svg>
-            </button>
-            <div class="logo">STUDIō</div>
-            <button class="topbat-btn" onclick="toggleTodo()" title="Tasks">
-                <svg viewBox="0 0 24 24" stroke-width="1.5">
-                    <line x1="8" y1="6" x2="21" y2="6"/>
-                    <line x1="8" y1="12" x2="21" y2="12"/>
-                    <line x1="8" y1="18" x2="21" y2="18"/>
-                    <polyline points="3 6 4 7 6 5"/>
-                    <polyline points="3 12 4 13 6 11"/>
-                    <polyline points="3 18 4 19 6 17"/>
-                </svg>
-            </button>
-        </div> 
-
-        <div class="main" id="mainArea">
-
-            <div id="setup">
-                <div class="setup-panel">
-                    <div class="setup-title">How long will you study today?</div>
-                    <div class="setup-sub">Choose or persnalize your study sesion</div>
-                    <div class="time-options">
-                        <div class="time-opt" onclick="selectTime(15, this)">15 min</div>
-                        <div class="time-opt selected" onclick="selectTime(25, this)">25 min</div>
-                        <div class="time-opt" onclick="selectTime(45, this)">45 min</div>
-                        <div class="time-opt" onclick="selectTime(60, this)">60 min</div>
-                        <div class="time-opt" onclick="selectTime(90, this)">90 min</div>
-                    </div>
-                    <div class="custom-time">
-                        <label > Personalized Time</label>
-                        <input type="number" id="customMins" min="1" max="300" placeholder="..." oninput="selectCustom(this.value)">
-                        <label >Mins</label>
-                    </div>
-                    <button class="start-btn" onclick="startTimer()">Start →</button>
-                </div>
-            </div>
-
-            <div id="timer">
-                <div class="timer-wrap">
-                    <svg class="timer-svg" id="timerSvg" width="200" height="200" viewBox="0 0 200 200">
-                        <circle class="ring-bg" cx="100" cy="100" r="88"/>
-                        <circle class="ring-fill" id="ringFill" cx="100" cy="100" r="88"/>
-                    </svg>
-                    <div class="timer-inner">
-                        <div class="timer-display" id="timerDisplay">00:00</div>
-                        <div class="timer-label" id="timerLabel">To go</div>
-                    </div>
-                </div>
-                <div class="controls" id="timerControls">
-                    <button class="ctrl-btn stop" onclick="resetTimer()">Stop</button>
-                    <button class="ctrl-btn primary" id="pauseBtn" onclick="togglePause()">Kill</button>
-                </div>
-                <div class="status-text" id="statusText"></div>
-            </div>
-
+        <div class="custom-time">
+          <label>personalizado</label>
+          <input type="number" id="customMin" min="1" max="300" placeholder="—" oninput="selectCustom(this.value)">
+          <label>min</label>
         </div>
-
-        <div class="bottombar">
-            <div class="clock-display" id="clockDisplay">--:-- . ---</div>
-        </div>
+        <button class="start-btn" onclick="startTimer()">iniciar sesión →</button>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- TIMER -->
+    <div id="timerView">
+      <div class="timer-wrap">
+        <svg class="timer-svg" id="timerSvg" width="200" height="200" viewBox="0 0 200 200">
+          <circle class="ring-bg" cx="100" cy="100" r="88"/>
+          <circle class="ring-fill" id="ringFill" cx="100" cy="100" r="88"/>
+        </svg>
+        <div class="timer-inner">
+          <div class="timer-display" id="timerDisplay">00:00</div>
+          <div class="timer-label" id="timerLabel">restante</div>
+        </div>
+      </div>
+      <div class="controls" id="timerControls">
+        <button class="ctrl-btn stop" onclick="resetTimer()">detener</button>
+        <button class="ctrl-btn primary" id="pauseBtn" onclick="togglePause()">pausar</button>
+      </div>
+      <div class="status-text" id="statusText"></div>
+    </div>
+
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="bottombar">
+    <div class="clock-display" id="clockDisplay">--:-- · ---</div>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
