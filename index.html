@@ -64,7 +64,7 @@
         <line x1="16" y1="2" x2="16" y2="6"/>
       </svg>
     </button>
-    <div class="logo">studiō</div>
+    <div class="logo">Studyō</div>
     <button class="topbar-btn" onclick="toggleTodo()" title="Tareas">
       <svg viewBox="0 0 24 24" stroke-width="1.5">
         <line x1="8" y1="6" x2="21" y2="6"/>
@@ -93,9 +93,12 @@
           <div class="time-opt" onclick="selectTime(90, this)">90 min</div>
         </div>
         <div class="custom-time">
-          <label>personalized:</label>
-          <input type="number" id="customMin" min="1" max="300" placeholder="—" oninput="selectCustom(this.value)">
-          <label>min</label>
+            <label>personalized:</label>
+            <input type="number" id="customMin" min="1" max="300" placeholder="—" oninput="selectCustom(this.value)">
+            <label>min /</label>
+            <label> resting time:</label>
+            <input type="number" id="restMin" value="5" min="1" max="60" oninput="updateRestTime(this.value)">
+            <label>min</label>
         </div>
         <button class="start-btn" onclick="startTimer()">Let's go! →</button>
       </div>

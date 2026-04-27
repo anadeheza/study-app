@@ -13,7 +13,7 @@
   --text:      #000000;
   --muted:     #61605e;
   --accent:    #fcc29b;
-  --accent2:   #1c1c1c;
+  --accent2:   #502705;
   --danger:    #c85a4a;
   --success:   #5a9e6f;
   --radius:    12px;
@@ -101,7 +101,7 @@ body {
 
 .logo {
   font-family: var(--font-serif);
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 300;
   color: var(--accent2);
   letter-spacing: 0.04em;
@@ -785,4 +785,10 @@ body {
 .panel-body::-webkit-scrollbar-thumb {
   background: var(--border2);
   border-radius: 4px;
+}
+
+#repeatBtn {
+  font-size: 9px;
+  cursor: pointer;
+  transition: opacity 0.3s;
 }
