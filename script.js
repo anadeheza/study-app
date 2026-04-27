@@ -1,6 +1,4 @@
-/* =====================
-   State
-   ===================== */
+/* State */
 let selectedMinutes = 25;
 let totalSeconds    = 0;
 let remainingSeconds = 0;
@@ -13,9 +11,7 @@ let events = {};
 let todos  = [];
 let todoId = 0;
 
-/* =====================
-   Init
-   ===================== */
+/* Init */
 (function init() {
   const now = new Date();
   calYear         = now.getFullYear();
@@ -29,13 +25,11 @@ let todoId = 0;
   setInterval(updateClock, 1000);
 })();
 
-/* =====================
-   Clock
-   ===================== */
+/*Clock*/
 function updateClock() {
   const d      = new Date();
-  const days   = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
-  const months = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const h      = String(d.getHours()).padStart(2, '0');
   const m      = String(d.getMinutes()).padStart(2, '0');
   const dayName = days[d.getDay()];
@@ -44,9 +38,7 @@ function updateClock() {
     `${h}:${m} · ${dayName}, ${dateStr}`;
 }
 
-/* =====================
-   Time Selection
-   ===================== */
+/* Time Selection */
 function selectTime(min, el) {
   selectedMinutes = min;
   document.querySelectorAll('.time-opt').forEach(e => e.classList.remove('selected'));
@@ -61,9 +53,7 @@ function selectCustom(val) {
   document.querySelectorAll('.time-opt').forEach(e => e.classList.remove('selected'));
 }
 
-/* =====================
-   Timer
-   ===================== */
+/* Timer */
 function startTimer() {
   if (!selectedMinutes || selectedMinutes < 1) return;
 
@@ -77,9 +67,9 @@ function startTimer() {
 
   document.getElementById('setupView').style.display = 'none';
   document.getElementById('timerView').style.display = 'flex';
-  document.getElementById('pauseBtn').textContent    = 'pausar';
+  document.getElementById('pauseBtn').textContent    = 'pause';
 
-  setStatus('running', 'sesión activa');
+  setStatus('running', 'active session');
 
   timerInterval = setInterval(tick, 1000);
 }
@@ -94,9 +84,9 @@ function tick() {
     isRunning = false;
     updateTimerDisplay();
     updateRing();
-    setStatus('done', '¡sesión completada! ✓');
+    setStatus('done', 'Session Completed! ✓');
     document.getElementById('timerControls').innerHTML =
-      '<button class="ctrl-btn primary" onclick="resetTimer()">nueva sesión</button>';
+      '<button class="ctrl-btn primary" onclick="resetTimer()">new session</button>';
   } else {
     updateTimerDisplay();
     updateRing();
@@ -105,10 +95,10 @@ function tick() {
 
 function togglePause() {
   isPaused = !isPaused;
-  document.getElementById('pauseBtn').textContent = isPaused ? 'continuar' : 'pausar';
+  document.getElementById('pauseBtn').textContent = isPaused ? 'continue' : 'pause';
   setStatus(
     isPaused ? 'paused' : 'running',
-    isPaused ? 'en pausa' : 'sesión activa'
+    isPaused ? 'paused' : 'active session'
   );
 }
 
@@ -122,8 +112,8 @@ function resetTimer() {
 
   // Restore original controls
   document.getElementById('timerControls').innerHTML =
-    '<button class="ctrl-btn stop" onclick="resetTimer()">detener</button>' +
-    '<button class="ctrl-btn primary" id="pauseBtn" onclick="togglePause()">pausar</button>';
+    '<button class="ctrl-btn stop" onclick="resetTimer()">end session</button>' +
+    '<button class="ctrl-btn primary" id="pauseBtn" onclick="togglePause()">stop</button>';
 }
 
 function updateTimerDisplay() {
@@ -155,9 +145,7 @@ function setStatus(cls, txt) {
   fill.style.strokeDashoffset = 0;
 })();
 
-/* =====================
-   Side Panels
-   ===================== */
+/* Side Panels */
 function toggleTodo() {
   const panel  = document.getElementById('todoPanel');
   const isOpen = panel.classList.contains('open');
@@ -184,9 +172,7 @@ function closePanels() {
   document.getElementById('overlay').classList.remove('active');
 }
 
-/* =====================
-   To-Do List
-   ===================== */
+/*To-Do List */
 function addTodo() {
   const input = document.getElementById('todoInput');
   const text  = input.value.trim();
@@ -210,22 +196,20 @@ function renderTodos() {
   const list = document.getElementById('todoList');
 
   if (todos.length === 0) {
-    list.innerHTML = '<div class="todo-empty">sin tareas aún</div>';
+    list.innerHTML = '<div class="todo-empty">No tasks pending...</div>';
     return;
   }
 
   list.innerHTML = todos.map(t => `
-    <div class="todo-item">
-      <div class="todo-check ${t.done ? 'done' : ''}" onclick="toggleTodoItem(${t.id})"></div>
-      <div class="todo-text ${t.done ? 'done' : ''}" onclick="toggleTodoItem(${t.id})">${escapeHtml(t.text)}</div>
-      <button class="todo-del" onclick="deleteTodo(${t.id})">×</button>
+    <div class="to-do-item">
+      <div class="to-do-check ${t.done ? 'done' : ''}" onclick="toggleTodoItem(${t.id})"></div>
+      <div class="to-do-text ${t.done ? 'done' : ''}" onclick="toggleTodoItem(${t.id})">${escapeHtml(t.text)}</div>
+      <button class="to-do-del" onclick="deleteTodo(${t.id})">×</button>
     </div>
   `).join('');
 }
 
-/* =====================
-   Calendar
-   ===================== */
+/* Calendar */
 function fmtDate(d) {
   return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
 }
@@ -240,16 +224,16 @@ function calNav(dir) {
 
 function renderCal() {
   const monthNames = [
-    'enero','febrero','marzo','abril','mayo','junio',
-    'julio','agosto','septiembre','octubre','noviembre','diciembre'
+    'January','February','March','April','May','June',
+    'July','August','September','October','November','December'
   ];
-  const dows = ['lu','ma','mi','ju','vi','sá','do'];
+  const dows = ['mon','tue','wed','thu','fry','sat','sun'];
 
   document.getElementById('calMonthLabel').textContent =
     `${monthNames[calMonth]} ${calYear}`;
 
   const firstDay    = new Date(calYear, calMonth, 1).getDay();
-  const offset      = (firstDay + 6) % 7; // Monday-first offset
+  const offset      = (firstDay + 6) % 7; 
   const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
   const today       = new Date();
 
@@ -292,15 +276,15 @@ function renderEvents() {
   const title  = document.getElementById('calEventsTitle');
   const evs    = events[calSelectedDate] || [];
   const monthNames = [
-    'enero','febrero','marzo','abril','mayo','junio',
-    'julio','agosto','septiembre','octubre','noviembre','diciembre'
+    'January','February','March','April','May','June',
+    'July','August','September','October','November','December'
   ];
 
   const [, m, d] = calSelectedDate.split('-');
-  title.textContent = `${parseInt(d)} ${monthNames[parseInt(m)]}`;
+  title.textContent = `${monthNames[parseInt(m)]} ${parseInt(d)}`;
 
   if (evs.length === 0) {
-    list.innerHTML = '<div class="no-events">sin eventos</div>';
+    list.innerHTML = '<div class="no-events">no events</div>';
     return;
   }
 
@@ -330,9 +314,7 @@ function deleteEvent(i) {
   renderEvents();
 }
 
-/* =====================
-   Utilities
-   ===================== */
+/* Utilities */
 function escapeHtml(str) {
   return str
     .replace(/&/g, '&amp;')

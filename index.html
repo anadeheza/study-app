@@ -29,9 +29,9 @@
       </div>
       <div class="cal-grid" id="calGrid"></div>
       <div class="cal-events">
-        <div class="cal-events-title" id="calEventsTitle">eventos</div>
+        <div class="cal-events-title" id="calEventsTitle">events</div>
         <div class="event-add">
-          <input id="eventInput" placeholder="agregar evento..." onkeydown="if(event.key==='Enter')addEvent()">
+          <input id="eventInput" placeholder="add event..." onkeydown="if(event.key==='Enter')addEvent()">
           <button onclick="addEvent()">+</button>
         </div>
         <div id="eventList"></div>
@@ -42,12 +42,12 @@
   <!-- Panel derecho: To-do -->
   <div class="panel right" id="todoPanel">
     <div class="panel-header">
-      <div class="panel-title">tareas</div>
+      <div class="panel-title">tasks</div>
       <button class="panel-close" onclick="closePanels()">×</button>
     </div>
     <div class="panel-body">
-      <div class="todo-add">
-        <input id="todoInput" placeholder="nueva tarea..." onkeydown="if(event.key==='Enter')addTodo()">
+      <div class="to-do-add">
+        <input id="todoInput" placeholder="new task..." onkeydown="if(event.key==='Enter')addTodo()">
         <button onclick="addTodo()">+</button>
       </div>
       <div id="todoList"></div>
@@ -83,8 +83,8 @@
     <!-- SETUP -->
     <div id="setupView">
       <div class="setup-panel">
-        <div class="setup-title">¿cuánto tiempo vas a estudiar?</div>
-        <div class="setup-sub">elegí o personalizá tu sesión</div>
+        <div class="setup-title">For how long will you study today?</div>
+        <div class="setup-sub">Choose or personalize your session</div>
         <div class="time-options">
           <div class="time-opt" onclick="selectTime(15, this)">15 min</div>
           <div class="time-opt selected" onclick="selectTime(25, this)">25 min</div>
@@ -93,11 +93,11 @@
           <div class="time-opt" onclick="selectTime(90, this)">90 min</div>
         </div>
         <div class="custom-time">
-          <label>personalizado</label>
+          <label>personalized:</label>
           <input type="number" id="customMin" min="1" max="300" placeholder="—" oninput="selectCustom(this.value)">
           <label>min</label>
         </div>
-        <button class="start-btn" onclick="startTimer()">iniciar sesión →</button>
+        <button class="start-btn" onclick="startTimer()">Let's go! →</button>
       </div>
     </div>
 
@@ -110,12 +110,12 @@
         </svg>
         <div class="timer-inner">
           <div class="timer-display" id="timerDisplay">00:00</div>
-          <div class="timer-label" id="timerLabel">restante</div>
+          <div class="timer-label" id="timerLabel">left</div>
         </div>
       </div>
       <div class="controls" id="timerControls">
-        <button class="ctrl-btn stop" onclick="resetTimer()">detener</button>
-        <button class="ctrl-btn primary" id="pauseBtn" onclick="togglePause()">pausar</button>
+        <button class="ctrl-btn stop" onclick="resetTimer()">end session</button>
+        <button class="ctrl-btn primary" id="pauseBtn" onclick="togglePause()">stop</button>
       </div>
       <div class="status-text" id="statusText"></div>
     </div>
@@ -129,6 +129,6 @@
 
 </div>
 
-<script src="app.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
